@@ -6,29 +6,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
 
-    <!-- touch icons -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
     <link href="css/chessboard.css" rel="stylesheet" />
+    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <div class="container">
+    <div id="board2" style="width: 400px"></div>
+    <input type="button" id="startBtn" value="Start" />
+    <input type="button" id="clearBtn" value="Clear" />
 
-    </div> <!-- /container -->
-    <script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+
     <script type="text/javascript" charset="utf-8" src="js/lib/underscore.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/lib/backbone.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/lib/chessboard.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/game.js"></script>
   </body>
 </html>
