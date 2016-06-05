@@ -16,10 +16,21 @@ GameBoard.material = new Array(2); // WHITE,BLACK material of pieces
 GameBoard.pceNum = new Array(13); // indexed by Pce
 GameBoard.pList = new Array(14 * 10);
 GameBoard.posKey = 0;
-
 GameBoard.moveList = new Array(MAXDEPTH * MAXPOSITIONMOVES);
 GameBoard.moveScores = new Array(MAXDEPTH * MAXPOSITIONMOVES);
 GameBoard.moveListStart = new Array(MAXDEPTH);
+
+/*
+pce * 10 + pceNum
+
+pceNum[bP] = 4;
+
+for(num = 0 to 3) {
+  bP * 10 + num;   70,71,72,73
+  sq = pList[70]....
+}
+
+*/
 
 function PrintBoard() {
 
@@ -55,7 +66,6 @@ function PrintBoard() {
   console.log("key:" + GameBoard.posKey.toString(16));
 }
 
-
 function GeneratePosKey() {
 
   var sq = 0;
@@ -83,17 +93,21 @@ function GeneratePosKey() {
 
 }
 
-function ResetBoard() {
+function PrintPieceLists() {
 
-  var index = 0;
+  var piece, pceNum;
 
-  for(index = 0; index < BRD_SQ_NUM; ++index) {
-    GameBoard.pieces[index] = SQUARES.OFFBOARD;
+  for(piece = PIECES.wP; piece <= PIECES.bK; ++piece) {
+    for(pceNum = 0; pceNum < GameBoard.pceNum[piece]; ++pceNum) {
+      console.log('Piece ' + PceChar[piece] + ' on ' + PrSq( GameBoard.pList[PCEINDEX(piece,pceNum)] ));
+    }
   }
 
-  for(index = 0; index < 64; ++index) {
-    GameBoard.pieces[SQ120(index)] = PIECES.EMPTY;
-  }
+}
+
+function UpdateListsMaterial() {
+
+  var piece,sq,index,colour;
 
   for(index = 0; index < 14 * 120; ++index) {
     GameBoard.pList[index] = PIECES.EMPTY;
@@ -105,6 +119,36 @@ function ResetBoard() {
 
   for(index = 0; index < 13; ++index) {
     GameBoard.pceNum[index] = 0;
+  }
+
+  for(index = 0; index < 64; ++index) {
+    sq = SQ120(index);
+    piece = GameBoard.pieces[sq];
+    if(piece != PIECES.EMPTY) {
+
+      colour = PieceCol[piece];
+
+      GameBoard.material[colour] += PieceVal[piece];
+
+      GameBoard.pList[PCEINDEX(piece,GameBoard.pceNum[piece])] = sq;
+      GameBoard.pceNum[piece]++;
+    }
+  }
+
+  PrintPieceLists();
+
+}
+
+function ResetBoard() {
+
+  var index = 0;
+
+  for(index = 0; index < BRD_SQ_NUM; ++index) {
+    GameBoard.pieces[index] = SQUARES.OFFBOARD;
+  }
+
+  for(index = 0; index < 64; ++index) {
+    GameBoard.pieces[SQ120(index)] = PIECES.EMPTY;
   }
 
   GameBoard.side = COLOURS.BOTH;
@@ -207,7 +251,5 @@ function ParseFen(fen) {
     }
 
   GameBoard.posKey = GeneratePosKey();
-
-
+  UpdateListsMaterial();
 }
-
