@@ -1,6 +1,8 @@
 $(function() {
   init();
   console.log("Main Init Called");
+  ParseFen(START_FEN);
+  PrintBoard();
 });
 
 function InitFilesRanksBrd() {
@@ -76,6 +78,4 @@ function init() {
   InitHashKeys();
   InitSq120To64();
 }
-
-
 
